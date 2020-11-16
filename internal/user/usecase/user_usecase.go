@@ -30,3 +30,12 @@ func (a *userUsecase) SignIn(password, email string) (domain.User, error) {
 	}
 	return u, nil
 }
+
+//Account ....
+func (a *userUsecase) Account(username string) (domain.User, error) {
+	user, err := a.UserRepo.Account(username)
+	if err != nil {
+		return domain.User{}, err
+	}
+	return user, nil
+}

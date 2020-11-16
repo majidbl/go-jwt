@@ -22,10 +22,12 @@ type LoginForm struct {
 type UserRepository interface {
 	SignUp(newuser User) error
 	SignIn(username, email string) (User, error)
+	Account(username string) (User, error)
 }
 
 // UserUsecase represent the User's UseCase
 type UserUsecase interface {
 	SignUp(newuser User) error
 	SignIn(username, email string) (User, error)
+	Account(username string) (User, error)
 }

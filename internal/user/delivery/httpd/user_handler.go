@@ -21,6 +21,7 @@ func NewUserHandler(e *gin.Engine, us domain.UserUsecase) {
 	}
 	e.POST("/user/signup", handler.SignUp)
 	e.POST("/user/signin", handler.SignIn)
+	e.GET("/user/account/:username", handler.Account)
 }
 
 // SignUp new User
@@ -69,4 +70,22 @@ func (m *UserHandler) SignIn(c *gin.Context) {
 			"err":     err.Error(),
 		})
 	}
+}
+
+// Account return user info
+func (m *UserHandler) Account(c *gin.Context) {
+	username := c.Param("username")
+	user, err := m.AUsecase.Account(username)
+	if err != nil {
+		c.JSON(200, gin.H{
+			"messsage": " Get info account faild ",
+			"Error":    err.Error(),
+		})
+	} else {
+		c.JSON(200, gin.H{
+			"message": "User Info",
+			"Payload": user,
+		})
+	}
+
 }
